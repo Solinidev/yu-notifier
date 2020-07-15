@@ -5,6 +5,16 @@ from bs4 import BeautifulSoup
 from links import *
 
 base = os.path.dirname(os.path.abspath(__file__)) + '/'
+with open(base + 'acc.txt') as a:
+    acc = a.read().strip()
+headers = {'Authorization' : 'Bearer ' + acc}
+instance = 'https://botsin.space'
+
+def toot(message):
+    t = dict()
+    t['status'] = message
+    t['visibility'] = 'private'
+    requests.post(instance + '/api/v1/statuses', headers = headers, date = t)
 
 r = requests.get(firstUrl)
 soup = BeautifulSoup(r.text, 'html.parser')
@@ -33,7 +43,10 @@ for i in range(num):
         if title is None or '새창으로' in title or '팝업' in title or '현재페이지 프린트' in title:
             pass
         else:
-            print(title)
+            msg = ''
+            link = j.get('href')
+            msg += title + '\n' + link
+            toot(msg)
 # print(test)
 
 for k in postTag:
