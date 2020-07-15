@@ -30,6 +30,7 @@ with open(base + 'pointNum.txt', 'r') as chk:
             f.write(postNum)
 
 num = int(postNum) - int(preNum)
+print(num)
 
 # postTitle = soup.findAll("td", {'class' : 'title'})
 # title = postTitle[0].get('title')
@@ -37,18 +38,31 @@ num = int(postNum) - int(preNum)
 # print(title)
 
 postTag = soup.findAll('a')
-for i in range(num):
-    for j in postTag:
-        title = j.get('title')
-        if title is None or '새창으로' in title or '팝업' in title or '현재페이지 프린트' in title:
-            pass
-        else:
-            msg = ''
-            link = j.get('href')
-            msg += title + '\n' + link
-            toot(msg)
+# for j in postTag[0:num]:
+#     title = j.get('title')
+#     if title is None or '새창으로' in title or '팝업' in title or '현재페이지 프린트' in title:
+#         pass
+#     else:
+#         msg = ''
+#         link = j.get('href')
+#         msg += title + '\n' + baseUrl + link
+#         print(msg)
+
 # print(test)
 
-for k in postTag:
-    link = k.get('href')
-    print(link)
+# for k in postTag:
+#     link = k.get('href')
+#     print(link)
+
+for i in range(num):
+    title = postTag[i-1].get('title')
+    if title is None or '새창으로' in title or '팝업' in title or '현재페이지 프린트' in title:
+        pass
+    else:
+        print(title)
+        msg = ''
+        link = postTag[i-1].get('href')
+        msg += title + '\n' + baseUrl + link
+        print(msg)
+
+# 긁어온 다음 if문에서 거르도록 수정해야함
