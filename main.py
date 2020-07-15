@@ -10,19 +10,32 @@ r = requests.get(firstUrl)
 soup = BeautifulSoup(r.text, 'html.parser')
 post = soup.findAll("tr")
 postNum = post[1].text[0:6]
-# print(postNum)
 
 with open(base + 'pointNum.txt', 'r') as chk:
     preNum = chk.read().strip()
     if preNum == postNum:
-        print('dd')
         sys.exit()
     else:
-        with open(base + 'pointNum.txt', 'w') as f:
+        with open(base + 'pointNum.txt', 'w') as f: # 개선 여지?
             f.write(postNum)
-            print('h')
 
+num = int(postNum) - int(preNum)
 
+# postTitle = soup.findAll("td", {'class' : 'title'})
+# title = postTitle[0].get('title')
+# print(postTitle[0])
+# print(title)
 
-postTitle = soup.findAll("td", {'class' : 'title'})
-print(postTitle[0])
+postTag = soup.findAll('a')
+for i in range(num):
+    for j in postTag:
+        title = j.get('title')
+        if title is None or '새창으로' in title or '팝업' in title or '현재페이지 프린트' in title:
+            pass
+        else:
+            print(title)
+# print(test)
+
+for k in postTag:
+    link = k.get('href')
+    print(link)
