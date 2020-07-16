@@ -10,7 +10,7 @@ def toot(message, headers, instance):
     requests.post(instance + '/api/v1/statuses', headers = headers, data = t)
 
 def check(fileName, postNum, base):
-    with open(base + fileName + '.txt', 'r') as chk:
+    with open(base + 'src/' + fileName + '.txt', 'r') as chk:
         preNum = chk.read().strip()
         if preNum == postNum:
             sys.exit()
