@@ -1,4 +1,5 @@
 # yu-notifier
 
 <h2>TODO</h2>
-찾은 태그 하위 태그 정보 크롤하기 (포스트 제목, 링크)
+나머지 한 곳
+정리하면서 circular import 문제 해결
