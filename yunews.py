@@ -9,12 +9,12 @@ soup = BeautifulSoup(r.text, 'html.parser')
 post = soup.findAll("tr")
 postNum = post[1].text[0:6]
 
-with open(main.base + 'pointNum.txt', 'r') as chk:
+with open(main.base + 'yunewsNum.txt', 'r') as chk: # 함수로
     preNum = chk.read().strip()
     if preNum == postNum:
         sys.exit()
     else:
-        with open(main.base + 'pointNum.txt', 'w') as f: # 개선 여지?
+        with open(main.base + 'yunewsNum.txt', 'w') as f: # 개선 여지?
             f.write(postNum)
 
 num = int(postNum) - int(preNum)

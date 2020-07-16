@@ -16,3 +16,5 @@ def toot(message):
     t['visibility'] = 'private'
     requests.post(instance + '/api/v1/statuses', headers = headers, date = t)
 
+import graduinfo
+graduinfo.graduinfo()
