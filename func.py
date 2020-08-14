@@ -66,3 +66,24 @@ def yunews(base, headers, instance):
     for j in range(num):
         message = posts[j]
         toot(message, headers, instance)
+
+def electroinfo(base, headers, instance):
+    r = requests.get(electroinfoUrl)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    posts = soup.findAll("tr", {"style" : "height:30px;background:#fafafa;"})
+
+    date = []
+    for i in posts:
+        for day in i.findAll("td"):
+            if len(day.text) != 10:
+                pass
+            else:
+                date.append(day.text)
+
+    prev = check('electroinfo', date[0], base)
+    msg = '새로운 학과 공지사항이 있습니다.\n' + electroinfoUrl
+
+    if prev != date[0]:
+        toot(msg, headers, instance)
+
+    # 임시방편, 하루 뒤 알림 받으므로 개선 필요
