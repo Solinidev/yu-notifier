@@ -15,7 +15,7 @@ def check(fileName, postNum, base):
         if preNum == postNum:
             sys.exit()
         else:
-            with open(base + fileName + '.txt', 'w') as f:
+            with open(base + 'src/' + fileName + '.txt', 'w') as f:
                 f.write(postNum)
     return preNum
 
