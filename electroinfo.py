@@ -1,4 +1,5 @@
 import requests
+import os
 from bs4 import BeautifulSoup
 from links import *
 
@@ -21,10 +22,12 @@ for i in title:
         else:
             date.append(j.text)
 
-prev = check('electroinfo', date[0], base)
+# prev = check('electroinfo', date[0], base)
 msg = '새로운 학과 공지사항이 있습니다.\n' + electroinfoUrl
 
-if prev != date[0]:
-    toot(msg, headers, instance)
+print(date)
+
+# if prev != date[0]:
+#     toot(msg, headers, instance)
 
 # 게시판 번호 없음, notice와 일반 게시글이 분리되어 있음

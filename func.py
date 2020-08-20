@@ -1,4 +1,5 @@
 import sys
+import time
 import requests
 from bs4 import BeautifulSoup
 from links import *
@@ -18,6 +19,11 @@ def check(fileName, postNum, base):
             with open(base + 'src/' + fileName + '.txt', 'w') as f:
                 f.write(postNum)
     return preNum
+
+def check_time(fileName, postNum, base):
+    with open(base + 'src/' + fileName + '.txt', 'r') as chk:
+        preNum = chk.readline().strip()
+        # only for majorinfo, pass if it is None.
 
 def graduinfo(base, headers, instance):
     r = requests.get(graduinfoUrl)
@@ -85,5 +91,13 @@ def electroinfo(base, headers, instance):
 
     if prev != date[0]:
         toot(msg, headers, instance)
+    else:
+        time = time.strftime('%H:%M:%S', time.localtime(time.time()))
+        with open(base + 'src/' + fileName + '.txt', 'a') as day:
+            day.write('\n' + time)
+
+            # check with time
+
+
 
     # 임시방편, 하루 뒤 알림 받으므로 개선 필요

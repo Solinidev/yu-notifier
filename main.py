@@ -12,4 +12,4 @@ if __name__ == '__main__':
 
     yunews(base, headers, instance)
     graduinfo(base, headers, instance)
-    electroinfo(base, headers, instance)
+    electroinfo(base, headers, instance)    # 비동기화?
