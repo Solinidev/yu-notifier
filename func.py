@@ -21,7 +21,8 @@ def check(fileName, postNum, base):
             if len(preNum) >= 10:
                 raise ValueError
             elif preNum == postNum:
-                sys.exit()
+                # sys.exit()
+                return preNum
             else:
                 with open(base + 'src/' + fileName + '.txt', 'w') as f:
                     f.write(postNum)
