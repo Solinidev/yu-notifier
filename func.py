@@ -11,18 +11,32 @@ def toot(message, headers, instance):
     requests.post(instance + '/api/v1/statuses', headers = headers, data = t)
 
 def check(fileName, postNum, base):
-    with open(base + 'src/' + fileName + '.txt', 'r') as chk:
-        preNum = chk.read().strip()
-        if preNum == postNum:
-            sys.exit()
+    try:
+        with open(base + 'src/' + fileName + '.txt', 'r') as chk:
+            for i in range(2):  # check time, date but pass if it's none
+                preNum = chk.readline().strip()
+                if preNum is None:
+                    pass
+            # preNum = chk.read().strip()
+            if len(preNum) >= 10:
+                raise ValueError
+            elif preNum == postNum:
+                sys.exit()
+            else:
+                with open(base + 'src/' + fileName + '.txt', 'w') as f:
+                    f.write(postNum)
+        return preNum
+    except ValueError:
+        if postNum != preNum:
+            pass
         else:
-            with open(base + 'src/' + fileName + '.txt', 'w') as f:
-                f.write(postNum)
-    return preNum
+            times = time.strftime('%H:%M:%S', time.localtime(time.time()))
+            with open(base + 'src/' + fileName + '.txt', 'a') as d:
+                d.write('\n' + times)
 
-def check_time(fileName, postNum, base):
-    with open(base + 'src/' + fileName + '.txt', 'r') as chk:
-        preNum = chk.readline().strip()
+# def check_time(fileName, postNum, base):
+#     with open(base + 'src/' + fileName + '.txt', 'r') as chk:
+#         preNum = chk.readline().strip()
         # only for majorinfo, pass if it is None.
 
 def graduinfo(base, headers, instance):
@@ -85,16 +99,15 @@ def electroinfo(base, headers, instance):
                 pass
             else:
                 date.append(day.text)
-
-    prev = check('electroinfo', date[0], base)
+    prev = check('electroinfo', date[0], base)  # returned previous num
     msg = '새로운 학과 공지사항이 있습니다.\n' + electroinfoUrl
-
-    if prev != date[0]:
-        toot(msg, headers, instance)
-    else:
-        time = time.strftime('%H:%M:%S', time.localtime(time.time()))
-        with open(base + 'src/' + fileName + '.txt', 'a') as day:
-            day.write('\n' + time)
+    # if prev != date[0]:
+    toot(msg, headers, instance)
+    # else:
+    #     times = time.strftime('%H:%M:%S', time.localtime(time.time()))
+    #     print(times)
+    #     with open(base + 'src/' + 'electroinfo.txt', 'a') as day:
+    #         day.write('\n' + time)
 
             # check with time
 
