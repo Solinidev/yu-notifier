@@ -13,11 +13,11 @@ def toot(message, headers, instance):
 def check(fileName, postNum, base):
     try:
         with open(base + 'src/' + fileName + '.txt', 'r') as chk:
-            for i in range(2):  # check time, date but pass if it's none
-                preNum = chk.readline().strip()
-                if preNum is None:
-                    pass
-            # preNum = chk.read().strip()
+            # for i in range(2):  # check time, date but pass if it's none
+            #     preNum = chk.readline().strip()
+            #     if preNum is None:
+            #         pass
+            preNum = chk.read().strip()
             if len(preNum) >= 10:
                 raise ValueError
             elif preNum == postNum:
@@ -30,9 +30,10 @@ def check(fileName, postNum, base):
         if postNum != preNum:
             pass
         else:
-            times = time.strftime('%H:%M:%S', time.localtime(time.time()))
-            with open(base + 'src/' + fileName + '.txt', 'a') as d:
-                d.write('\n' + times)
+            pass    # can't compare with time need another solutions
+            # times = time.strftime('%H:%M:%S', time.localtime(time.time()))
+            # with open(base + 'src/' + fileName + '.txt', 'a') as d:
+            #     d.write('\n' + times)
 
 # def check_time(fileName, postNum, base):
 #     with open(base + 'src/' + fileName + '.txt', 'r') as chk:
@@ -101,16 +102,7 @@ def electroinfo(base, headers, instance):
                 date.append(day.text)
     prev = check('electroinfo', date[0], base)  # returned previous num
     msg = '새로운 학과 공지사항이 있습니다.\n' + electroinfoUrl
-    # if prev != date[0]:
     toot(msg, headers, instance)
-    # else:
-    #     times = time.strftime('%H:%M:%S', time.localtime(time.time()))
-    #     print(times)
-    #     with open(base + 'src/' + 'electroinfo.txt', 'a') as day:
-    #         day.write('\n' + time)
-
-            # check with time
-
 
 
     # 임시방편, 하루 뒤 알림 받으므로 개선 필요

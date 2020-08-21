@@ -10,6 +10,6 @@ if __name__ == '__main__':
     headers = {'Authorization' : 'Bearer ' + acc}
     instance = 'https://botsin.space'
 
-    # yunews(base, headers, instance)
-    # graduinfo(base, headers, instance)
+    yunews(base, headers, instance)
+    graduinfo(base, headers, instance)
     electroinfo(base, headers, instance)    # 비동기화?
