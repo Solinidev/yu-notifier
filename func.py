@@ -1,4 +1,3 @@
-import sys
 import time
 import requests
 from bs4 import BeautifulSoup
@@ -21,7 +20,6 @@ def check(fileName, postNum, base):
             if len(preNum) >= 10:
                 raise ValueError
             elif preNum == postNum:
-                # sys.exit()
                 return preNum
             else:
                 with open(base + 'src/' + fileName + '.txt', 'w') as f:
@@ -29,9 +27,11 @@ def check(fileName, postNum, base):
         return preNum
     except ValueError:
         if postNum != preNum:
-            pass
+            with open(base + 'src/' + fileName + '.txt', 'w') as d:
+                d.write(postNum)
+            return
         else:
-            pass    # can't compare with time need another solutions
+            return    # can't compare with time need another solutions
             # times = time.strftime('%H:%M:%S', time.localtime(time.time()))
             # with open(base + 'src/' + fileName + '.txt', 'a') as d:
             #     d.write('\n' + times)
@@ -101,7 +101,7 @@ def electroinfo(base, headers, instance):
                 pass
             else:
                 date.append(day.text)
-    prev = check('electroinfo', date[0], base)  # returned previous num
+    check('electroinfo', date[0], base)  # returned previous num
     msg = '새로운 학과 공지사항이 있습니다.\n' + electroinfoUrl
     toot(msg, headers, instance)
 
